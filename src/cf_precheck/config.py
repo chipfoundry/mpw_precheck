@@ -13,16 +13,53 @@ from pathlib import Path
 
 
 def uncompress_gds(project_path: Path, caravel_root: Path) -> None:
+    """Run the caravel-lite `uncompress` make target to gunzip gds/*.gds.gz.
+
+    Surfaces real failures instead of silently swallowing them. We deliberately
+    do NOT use ``check=True`` because the caravel-lite Makefile's ``uncompress``
+    target also touches ``mag/*.mag.gz``; if a project has both ``mag/foo.mag``
+    and ``mag/foo.mag.gz`` committed (common), gunzip exits non-zero on that
+    *after* the gds step has already produced ``gds/*.gds`` files. Failing the
+    whole precheck on that benign mag-step exit would be wrong. Instead we
+    judge by the post-condition cf-precheck actually cares about: at least one
+    ``gds/*.gds`` file in the working tree.
+    """
     cmd = f"make -f {caravel_root}/Makefile uncompress;"
-    try:
-        logging.info(f"Extracting compressed files in: {project_path}")
-        subprocess.run(
-            cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE,
-            shell=True, cwd=str(project_path),
+    logging.info(f"Extracting compressed files in: {project_path}")
+    result = subprocess.run(
+        cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE,
+        shell=True, cwd=str(project_path),
+    )
+
+    gds_dir = project_path / "gds"
+    produced_gds = sorted(gds_dir.glob("*.gds")) if gds_dir.is_dir() else []
+
+    if produced_gds:
+        names = ", ".join(p.name for p in produced_gds)
+        logging.info(
+            f"make uncompress produced {len(produced_gds)} gds/*.gds file(s): {names} "
+            f"(make exit {result.returncode})"
         )
-    except subprocess.CalledProcessError as error:
-        logging.critical(f"Make 'uncompress' error: {error}")
-        sys.exit(252)
+        return
+
+    stderr_text = (result.stderr or b"").decode(errors="replace").strip()
+    stdout_text = (result.stdout or b"").decode(errors="replace").strip()
+    stderr_tail = stderr_text[-4000:] if stderr_text else "(empty)"
+    stdout_tail = stdout_text[-200:] if stdout_text else "(empty)"
+
+    if result.returncode != 0:
+        logging.critical(
+            "make uncompress failed and produced no gds/*.gds files "
+            f"(exit {result.returncode}). "
+            f"stderr tail: {stderr_tail} | stdout tail: {stdout_tail}"
+        )
+    else:
+        logging.critical(
+            "make uncompress reported success (exit 0) but produced no "
+            f"gds/*.gds files in {gds_dir}. stderr tail: {stderr_tail} | "
+            f"stdout tail: {stdout_tail}"
+        )
+    sys.exit(252)
 
 
 def is_binary_file(filename: str | Path) -> bool:
