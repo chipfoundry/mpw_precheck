@@ -34,8 +34,10 @@
 #     * Updated to be in line with the current Skywater required rules
 #   2025-11-21 : licon bar spacing for SP.15/16
 #     * Updated to 0.57 & 0.64 per feedback from SWT
+#   2026-03-17 : fixed MR_mcon.CON.10
+#     * was not flagging violations
 ##########################################################################################
-release = "2025.11.17_01.10"
+release = "2026.03.30_01.00"
 
 require "time"
 require "logger"
@@ -1149,7 +1151,7 @@ if BEOL
             "MR_mcon.CON.1: ring-shaped mcon must be enclosed by areaid_sl"
         )
     end
-    mconnotace.not(li).output("MR_mcon.CON.10", "MR_mcon.CON.10 : mcon should covered by li")
+    mcon.not(li).output("MR_mcon.CON.10", "MR_mcon.CON.10 : mcon should covered by li")
     log("END: 67/44 (mcon)")
 
     #   m1
