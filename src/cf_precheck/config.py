@@ -92,12 +92,14 @@ def get_project_config(project_path: Path, caravel_root: Path) -> dict:
     digital_gds = project_path / "gds/user_project_wrapper.gds"
     openframe_gds = project_path / "gds/openframe_project_wrapper.gds"
     mini_gds = project_path / "gds/user_project_wrapper_mini4.gds"
+    double_wide_gds = project_path / "gds/double_wide_openframe_project_wrapper.gds"
 
     gds_files = {
         "analog": analog_gds,
         "digital": digital_gds,
         "openframe": openframe_gds,
         "mini": mini_gds,
+        "double_wide": double_wide_gds,
     }
     present = {k: v for k, v in gds_files.items() if v.exists()}
 
@@ -105,7 +107,9 @@ def get_project_config(project_path: Path, caravel_root: Path) -> dict:
         logging.critical(
             "A single valid GDS was not found. "
             "Digital projects need 'gds/user_project_wrapper(.gds/.gds.gz)'. "
-            "Analog projects need 'gds/user_analog_project_wrapper(.gds/.gds.gz)'."
+            "Analog projects need 'gds/user_analog_project_wrapper(.gds/.gds.gz)'. "
+            "Openframe projects need 'gds/openframe_project_wrapper(.gds/.gds.gz)'. "
+            "Double-wide projects need 'gds/double_wide_openframe_project_wrapper(.gds/.gds.gz)'."
         )
         sys.exit(254)
 
@@ -146,6 +150,15 @@ def get_project_config(project_path: Path, caravel_root: Path) -> dict:
             "golden_wrapper": "user_project_wrapper_mini4_empty",
             "top_netlist": caravel_root / "verilog/gl/caravel.v",
             "user_netlist": project_path / "verilog/gl/user_project_wrapper_mini4.v",
+        },
+        "double_wide": {
+            "type": "double_wide",
+            "netlist_type": "verilog",
+            "top_module": "double_wide_chip_io",
+            "user_module": "double_wide_openframe_project_wrapper",
+            "golden_wrapper": "double_wide_openframe_project_wrapper_empty",
+            "top_netlist": caravel_root / "verilog/gl/double_wide_chip_io.v",
+            "user_netlist": project_path / "verilog/gl/double_wide_openframe_project_wrapper.v",
         },
     }
     return configs[proj_type]

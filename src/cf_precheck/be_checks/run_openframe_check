@@ -129,8 +129,14 @@ ERROR: Could not create $WORK_ROOT/cvcrc.oeb"
 fi
 
 if [[ "$DESIGN_NAME" == *openframe_project_wrapper ]]; then
+	# Standard openframe: 44 GPIOs (0..43). Double-wide: 59 GPIOs (0..58).
+	if [[ "$DESIGN_NAME" == *double_wide* ]]; then
+		gpio_max=58
+	else
+		gpio_max=43
+	fi
 	echo "c 6" >$WORK_ROOT/cvc.oeb.script
-	for ((i = 0; i <= 43; i++)); do
+	for ((i = 0; i <= gpio_max; i++)); do
 		cat >>$WORK_ROOT/cvc.oeb.script <<-cvcin
 			gn analog_io[$i]
 			gn analog_noesd_io[$i]

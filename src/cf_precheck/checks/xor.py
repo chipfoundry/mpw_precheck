@@ -35,6 +35,8 @@ def gds_xor_check(
             return False
 
         os.environ["MAGTYPE"] = "mag"
+        # magicrc resolves tech via $PDK_ROOT/<pdk>/libs.tech/magic/...
+        os.environ["PDK_ROOT"] = str(precheck_config["pdk_path"].parent)
 
         gds_ut_box_erased_path = outputs_directory / f"{project_config['user_module']}_erased.gds"
         pdk_stem = precheck_config["pdk_path"].stem
@@ -42,6 +44,8 @@ def gds_xor_check(
             tcl_erase = _SCRIPTS_DIR / "erase_box_gf180mcu.tcl"
         elif project_config["type"] == "openframe":
             tcl_erase = _SCRIPTS_DIR / "erase_box_openframe.tcl"
+        elif project_config["type"] == "double_wide":
+            tcl_erase = _SCRIPTS_DIR / "erase_box_double_wide.tcl"
         elif project_config["type"] == "mini":
             tcl_erase = _SCRIPTS_DIR / "erase_box_mini4.tcl"
         else:
@@ -95,7 +99,7 @@ class XOR:
     __ref__ = "xor"
     __surname__ = "XOR"
     __supported_pdks__ = ["gf180mcuC", "gf180mcuD", "sky130A", "sky130B"]
-    __supported_type__ = ["analog", "digital", "openframe", "mini"]
+    __supported_type__ = ["analog", "digital", "openframe", "mini", "double_wide"]
     __optional__ = False
 
     def __init__(self, precheck_config: dict, project_config: dict):

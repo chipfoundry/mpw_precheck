@@ -131,7 +131,7 @@ class MagicDRC:
     __ref__ = "magic_drc"
     __surname__ = "Magic DRC"
     __supported_pdks__ = ["sky130A", "sky130B"]
-    __supported_type__ = ["analog", "digital", "openframe", "mini"]
+    __supported_type__ = ["analog", "digital", "openframe", "mini", "double_wide"]
     __optional__ = True
 
     def __init__(self, precheck_config: dict, project_config: dict):

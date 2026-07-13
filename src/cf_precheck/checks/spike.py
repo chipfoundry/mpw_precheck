@@ -25,7 +25,7 @@ class SpikeCheck:
     __ref__ = "spike_check"
     __surname__ = "Spike Check"
     __supported_pdks__ = ["gf180mcuC", "gf180mcuD", "sky130A", "sky130B"]
-    __supported_type__ = ["analog", "digital", "openframe", "mini"]
+    __supported_type__ = ["analog", "digital", "openframe", "mini", "double_wide"]
     __optional__ = False
 
     def __init__(self, precheck_config: dict, project_config: dict):

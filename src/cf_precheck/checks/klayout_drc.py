@@ -66,7 +66,7 @@ class _KlayoutDRCBase:
     __ref__: str | None = None
     __surname__: str | None = None
     __supported_pdks__: list[str] | None = None
-    __supported_type__ = ["analog", "digital", "openframe", "mini"]
+    __supported_type__ = ["analog", "digital", "openframe", "mini", "double_wide"]
     __optional__ = False
 
     def __init__(self, precheck_config: dict, project_config: dict):

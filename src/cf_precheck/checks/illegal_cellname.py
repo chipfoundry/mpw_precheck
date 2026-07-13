@@ -29,7 +29,7 @@ class IllegalCellnameCheck:
     __ref__ = "illegal_cellname_check"
     __surname__ = "Illegal Cellname"
     __supported_pdks__ = ["sky130A", "sky130B"]
-    __supported_type__ = ["analog", "digital", "openframe", "mini"]
+    __supported_type__ = ["analog", "digital", "openframe", "mini", "double_wide"]
     __optional__ = False
 
     def __init__(self, precheck_config: dict, project_config: dict):

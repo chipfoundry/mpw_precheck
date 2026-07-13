@@ -60,6 +60,36 @@ cf-precheck -i ./my_project -p $PDK_ROOT/sky130A -c ./caravel --magic-drc
 cf-precheck -i ./my_project -p $PDK_ROOT/sky130A -c ./caravel --skip-checks lvs oeb
 ```
 
+## Double-wide openframe
+
+Double-wide projects are detected when exactly one of these GDS files is present:
+
+`gds/double_wide_openframe_project_wrapper.gds`
+
+| Field | Value |
+|-------|--------|
+| Type | `double_wide` |
+| User module | `double_wide_openframe_project_wrapper` |
+| Top module | `double_wide_chip_io` |
+| Golden wrapper | `double_wide_openframe_project_wrapper_empty` |
+| User area | 6754.63 × 4766.63 µm (59 GPIOs) |
+
+Pass the double-wide **harness** root (not stock Caravel) as `-c`. That root must
+provide:
+
+- `gds/double_wide_openframe_project_wrapper_empty.gds`
+- `verilog/rtl/__double_wide_openframe_project_wrapper.v` (port-list golden)
+
+```bash
+cf-precheck \
+  -i ../dw_openframe_user_project \
+  -p $PDK_ROOT/sky130A \
+  -c ../dw_openframe
+```
+
+XOR uses `erase_box_double_wide.tcl` (scaled openframe perimeter erase). OEB uses
+the openframe CVC path with GPIO indices `0..58`.
+
 ## Checks
 
 | Check | Description |

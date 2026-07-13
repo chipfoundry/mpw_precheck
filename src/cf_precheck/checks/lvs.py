@@ -18,7 +18,7 @@ class Lvs:
     __ref__ = "lvs"
     __surname__ = "LVS"
     __supported_pdks__ = ["gf180mcuC", "gf180mcuD", "sky130A", "sky130B"]
-    __supported_type__ = ["analog", "digital", "openframe", "mini"]
+    __supported_type__ = ["analog", "digital", "openframe", "mini", "double_wide"]
     __optional__ = False
 
     def __init__(self, precheck_config: dict, project_config: dict):
@@ -30,6 +30,7 @@ class Lvs:
         type_to_design = {
             "analog": "user_analog_project_wrapper",
             "openframe": "openframe_project_wrapper",
+            "double_wide": "double_wide_openframe_project_wrapper",
             "mini": "user_project_wrapper_mini4",
         }
         self.design_name = type_to_design.get(proj_type, "user_project_wrapper")
