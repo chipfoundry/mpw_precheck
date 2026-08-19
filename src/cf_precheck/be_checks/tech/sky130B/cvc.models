@@ -9,10 +9,12 @@ D sky130_fd_pr__diode_pw2nd_05v5_lvt
 D sky130_fd_pr__diode_pw2nd_05v5_nvt 
 D sky130_fd_pr__diode_pd2nw_05v5
 D sky130_fd_pr__diode_pd2nw_05v5_lvt
+D sky130_fd_pr__diode_pd2nw_05v5_hvt
 D sky130_fd_pr__diode_pd2nw_11v0
 D sky130_fd_pr__model__parasitic__diode_ps2dn
 D sky130_fd_pr__model__parasitic__diode_ps2nw
 D sky130_fd_pr__model__parasitic__diode_pw2dn
+D sky130_fd_pr__photodiode
 D condiode
 
 
@@ -57,24 +59,29 @@ MN sky130_fd_pr__nfet_03v3_nvt Vth=0.2 Vgs=3.3 Vds=3.3
 MN sky130_fd_pr__esd_nfet_g5v0d10v5 Vth=0.2
 MN sky130_fd_pr__nfet_05v0_nvt Vth=0.2
 MN sky130_fd_pr__nfet_g5v0d10v5 Vth=0.2
+MN sky130_fd_pr__nfet_g5v0d16v0 Vth=0.2
 MN sky130_fd_bs_flash__special_sonosfet_star Vth=0.2
 
 MP sky130_fd_pr__pfet_01v8 Vth=-0.2 Vgs=1.8 Vds=1.8
+MP sky130_fd_pr__pfet_01v8_mvt Vth=-0.2 Vgs=1.8 Vds=1.8
 MP sky130_fd_pr__pfet_01v8_lvt Vth=-0.1 Vgs=1.8 Vds=1.8
 MP sky130_fd_pr__pfet_01v8_hvt Vth=-0.3 Vgs=1.8 Vds=1.8
 MP sky130_fd_pr__special_pfet_01v8_hvt Vth=-0.3 Vgs=1.8 Vds=1.8
 MP sky130_fd_pr__special_pfet_pass Vth=-0.2 Vgs=1.8 Vds=1.8
 MP sky130_fd_pr__special_pfet_latch Vth=-0.2 Vgs=1.8 Vds=1.8
 MP sky130_fd_pr__pfet_g5v0d10v5 Vth=-0.2
+MP sky130_fd_pr__pfet_g5v0d16v0 Vth=-0.2
 
 C sky130_fd_pr__cap_mim_m3_1
 C sky130_fd_pr__cap_mim_m3_2
 C sky130_fd_pr__cap_var
 C sky130_fd_pr__cap_var_lvt
+C sky130_fd_pr__cap_var_hvt
 
 Q sky130_fd_pr__pnp_05v5
 Q sky130_fd_pr__pnp_05v5_W0p68L0p68
 Q sky130_fd_pr__pnp_05v5_W3p40L3p40
+Q sky130_fd_pr__npn_05v5
 Q sky130_fd_pr__npn_11v0
 Q sky130_fd_pr__npn_11v0_W1p00L1p00
 
