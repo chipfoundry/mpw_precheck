@@ -46,8 +46,8 @@ WORKDIR $KLAYOUT_ROOT
 # builds. Keep this fetch resilient with retries and cert bypass so we don't
 # block publication of mpw_precheck images.
 RUN wget --tries=5 --waitretry=5 --timeout=30 --no-check-certificate \
-    https://www.klayout.org/downloads/RockyLinux_9/klayout-0.29.2-0.x86_64.rpm
-RUN dnf -y install ./klayout-0.29.2-0.x86_64.rpm && \
+    https://www.klayout.org/downloads/RockyLinux_9/klayout-0.29.12-0.x86_64.rpm
+RUN dnf -y install ./klayout-0.29.12-0.x86_64.rpm && \
     dnf clean all
 
 # Clone Magic
