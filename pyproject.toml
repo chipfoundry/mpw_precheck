@@ -18,7 +18,7 @@ dependencies = [
     # `undefined symbol: _ZNK2db18shape_interactions...` ImportError after a
     # `pip install --force-reinstall cf-precheck` on top of the base image.
     # If the base image bumps its klayout RPM, bump this pin in lockstep.
-    "klayout==0.29.2",
+    "klayout==0.29.12",
     "numpy",
     "pyverilog",
     "pyyaml",
